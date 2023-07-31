@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from .locators import BasePageLocators
+from .locators import BasketPageLocators
 import math
 import time
 
@@ -11,7 +12,7 @@ class BasePage():
     def __init__(self, browser, url, timeout=10):
         self.browser = browser
         self.url = url
-        # self.browser.implicitly_wait(timeout)
+        self.browser.implicitly_wait(timeout)
         
     def open(self):
         self.browser.get(self.url)
@@ -46,7 +47,6 @@ class BasePage():
             WebDriverWait(self.browser, timeout).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return True
-            
         return False
         
     def is_disappeared(self, how, what, timeout=4):
@@ -54,11 +54,18 @@ class BasePage():
             WebDriverWait(self.browser, timeout, 1, TimeoutException).until_not(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return False
-            
         return True
    
-
-   
+    def go_to_basket_page_by_btn(self):
+        link = self.browser.find_element(*BasePageLocators.BASKET_BTN)
+        link.click()
+ 
+    def should_be_empty_basket(self):
+        assert self.is_not_element_present(*BasketPageLocators.ANY_BOOK_AT_BASKET), "Basket is not empty, but should be"
+ 
+    def should_be_msg_about_empty_basket(self):
+        assert "Your basket is empty." in self.browser.find_element(*BasketPageLocators.MSG_EMPTY_BASKET).text, "Msg about empty basket is not presented, but should be"
+ 
     def go_to_login_page(self):
         link = self.browser.find_element(*BasePageLocators.LOGIN_LINK_INVALID)
         link.click()
