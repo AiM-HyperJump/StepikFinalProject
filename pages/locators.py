@@ -10,6 +10,12 @@ class PageObjectLocators():
     BASKET_COST = (By.CSS_SELECTOR, ".alertinner p strong")
     BOOK_COST = (By.CSS_SELECTOR, ".col-sm-6 .price_color")
     
+class ProductPageLocators():
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, ".alert-success .alertinner strong")
+    
+class BasePageLocators():
+    LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
+    LOGIN_LINK_INVALID = (By.CSS_SELECTOR, "#login_link_inc")
     
 class LoginPageLocators():
     REGISTRATION_LINK = (By.CSS_SELECTOR, "#login_link")
