@@ -1,6 +1,7 @@
 #from .pages.main_page import MainPage
 # from .pages.locators import LoginPageLocators
 from .pages.product_page import ProductPage
+from .pages.basket_page import BasketPage
 import pytest
 import time
 
@@ -61,7 +62,7 @@ import time
       
 def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     link = "http://selenium1py.pythonanywhere.com/"
-    page = ProductPage(browser, link)
+    page = BasketPage(browser, link)
     page.open()
     page.go_to_basket_page_by_btn()
     page.should_be_empty_basket()
@@ -69,7 +70,7 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
     
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/"
-    page = ProductPage(browser, link)
+    page = BasketPage(browser, link)
     page.open()   
     page.go_to_basket_page_by_btn()
     page.should_be_empty_basket()
